@@ -67,7 +67,9 @@ module Mongo
     def read(maxlen, buffer)
       # Block on data to read for @op_timeout seconds
       begin
+        puts "fn=TCPSocket.read start"
         ready = IO.select([@socket], nil, [@socket], @op_timeout)
+        puts "fn=TCPSocket.read end"
         unless ready
           raise OperationTimeout
         end
