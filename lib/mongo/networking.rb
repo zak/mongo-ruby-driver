@@ -162,6 +162,7 @@ module Mongo
 
     def receive(sock, cursor_id, opts={})
       exhaust    = !!opts.delete(:exhaust)
+      puts "Networking.receive cur_id: #{cursor_id} exhaust: #{exhaust}"
 
       if exhaust
         docs = []
@@ -328,6 +329,7 @@ module Mongo
       begin
           message = receive_data(length, socket)
       rescue OperationTimeout, ConnectionFailure => ex
+        puts "Networking.receive_message_on_socket #{ex.class}"
         socket.close
 
         if ex.class == OperationTimeout
